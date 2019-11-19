@@ -25,7 +25,7 @@
       </configuration>
     </facet>
     <facet type="kotlin-language" name="Kotlin">
-      <configuration version="3" platform="JVM 1.6" allPlatforms="JVM [1.6]" useProjectSettings="false" pureKotlinSourceFolders="$MODULE_DIR$/src/debug/kotlin;/home/yvillia/AndroidStudioProjects/BEST/app/src/debug/java;/home/yvillia/AndroidStudioProjects/BEST/app/src/release/kotlin;/home/yvillia/AndroidStudioProjects/BEST/app/src/release/java;/home/yvillia/AndroidStudioProjects/BEST/app/src/debugAndroidTest/kotlin;/home/yvillia/AndroidStudioProjects/BEST/app/src/debugUnitTest/kotlin;/home/yvillia/AndroidStudioProjects/BEST/app/src/releaseUnitTest/kotlin">
+      <configuration version="3" platform="JVM 1.6" allPlatforms="JVM [1.6]" useProjectSettings="false" pureKotlinSourceFolders="$MODULE_DIR$/src/debug/kotlin;/home/yvillia/Git/CS125_FP/B.E.S.T-App/B.E.S.T-App/app/src/debug/java;/home/yvillia/Git/CS125_FP/B.E.S.T-App/B.E.S.T-App/app/src/release/kotlin;/home/yvillia/Git/CS125_FP/B.E.S.T-App/B.E.S.T-App/app/src/release/java;/home/yvillia/Git/CS125_FP/B.E.S.T-App/B.E.S.T-App/app/src/debugAndroidTest/kotlin;/home/yvillia/Git/CS125_FP/B.E.S.T-App/B.E.S.T-App/app/src/debugUnitTest/kotlin;/home/yvillia/Git/CS125_FP/B.E.S.T-App/B.E.S.T-App/app/src/releaseUnitTest/kotlin">
         <compilerSettings>
           <option name="additionalArguments" value="-Xallow-no-source-files" />
         </compilerSettings>
