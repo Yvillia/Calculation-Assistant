@@ -15,16 +15,11 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
-    <TextView
-        android:id="@+id/logo"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-90dp"
-        android:gravity="center"
-        android:text="@string/b_e_s_t"
-        android:textAllCaps="false"
-        android:textSize="72sp"
-        android:textStyle="bold" />
+        />
 
     <LinearLayout
         android:id="@+id/inputLayout"
@@ -60,7 +55,7 @@
             android:gravity="start"
             android:hint="@string/type_expression_in_here"
             android:inputType="textMultiLine"
-            android:paddingTop="30dp" tools:targetApi="o"/>
+            android:paddingTop="30dp" />
 
     </LinearLayout>
 
@@ -68,28 +63,17 @@
         android:id="@+id/submissionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="-100dp"
-        android:gravity="end"
+        android:layout_marginTop="-60dp"
+        android:gravity="start"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/submission"
-            android:layout_width="160dp"
+            android:layout_width="134dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="20dp"
             android:minWidth="44dip"
-            android:text="@string/submit"
-            android:layout_marginEnd="20dp" />
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
+            android:text="@string/submit" />
     </LinearLayout>
 
 </LinearLayout>

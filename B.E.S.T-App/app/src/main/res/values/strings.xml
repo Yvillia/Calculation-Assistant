@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BEST</string>
+    <string name="please_input_your_algebraic_expression">Please Input Your Algebraic Expression:</string>
+    <string name="type_expression_in_here">Type Expression In Here:</string>
+    <string name="submit">Submit</string>
+    <string name="logo">logo</string>
+    <string name="b_e_s_t">B.E.S.T.</string>
 </resources>
