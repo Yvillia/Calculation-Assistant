@@ -1,5 +1,6 @@
 package com.example.best
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -11,10 +12,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val submit: Button = findViewById(R.id.submission)
         val input: TextView = findViewById(R.id.expression)
+        val passIntent = Intent(this, CompletedActivity::class.java)
 
         submit.setOnClickListener {
             val passed: String = input.text.toString()
-            inputHandler(passed)
+            inputHandler(passed, passIntent)
         }
     }
 
@@ -23,20 +25,13 @@ class MainActivity : AppCompatActivity() {
      * Function Will Be Completed Later
      *
      */
-    fun inputHandler(input: String) : String {
-        return input
+    private fun inputHandler(input: String, passIntent: Intent) {
+        /***
+         * DO SOMETHING WITH input HERE
+         */
+        passIntent.putExtra("output", input)
+        startActivityForResult(passIntent, 0)
     }
 
-    /**
-     * Once again a Backend Function
-     * Will Return an Output and Place it Inside TextView in activity_return.xml
-     */
-    fun toReturn(output: String) {
-
-    }
-
-    /**
-     * Create a Return Button to Allow Users to Start Over Again
-     */
 
 }
