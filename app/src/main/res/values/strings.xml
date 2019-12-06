@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">calculationAssistant</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="please_input_your_algebraic_expression">Please Input Your Algebraic Expression:</string>
+    <string name="type_expression_in_here">Type Expression In Here:</string>
+    <string name="submit">Submit</string>
+    <string name="title">Calculation Assistant</string>
+    <string name="make_another_submission">Make Another Submission</string>
+</resources>

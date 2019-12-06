@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <TextView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/title"
+        android:textAllCaps="false"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/inputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|top"
+            android:orientation="vertical"
+            android:paddingLeft="30dp"
+            android:paddingTop="40dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="125dp">
+
+            <TextView
+                android:id="@+id/prompt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="10sp"
+                android:text="@string/please_input_your_algebraic_expression"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:typeface="normal"
+                app:autoSizeMaxTextSize="24sp"
+                app:autoSizeMinTextSize="14sp"
+                app:fontFamily="monospace" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/input"
+                        style="@style/Widget.AppCompat.AutoCompleteTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start"
+                        android:autofillHints=""
+                        android:ems="16"
+                        android:gravity="start"
+                        android:hint="@string/type_expression_in_here"
+                        android:inputType="text"
+                        android:paddingTop="30dp"
+                        android:singleLine="true"
+                        tools:targetApi="o" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/submissionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-100dp"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/confirm"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:minWidth="44dip"
+                android:text="@string/submit" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
