@@ -1,10 +1,44 @@
 <resources>
-    <string name="app_name">calculationAssistant</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="app_name">Calculation Assistant</string>
     <string name="please_input_your_algebraic_expression">Please Input Your Algebraic Expression:</string>
     <string name="type_expression_in_here">Type Expression In Here:</string>
     <string name="submit">Submit</string>
     <string name="title">Calculation Assistant</string>
     <string name="make_another_submission">Make Another Submission</string>
+    <string name="algebraic">Algebraic</string>
+    <string name="derivation">Derivation</string>
+    <string name="integration">Integration</string>
+    <string name="derivate_with_respect_to">Take Derivative With Respect To</string>
+    <string name="please_input_the_expression_you_wish_to_differentiate">Please Input the Expression You Wish to Differentiate:</string>
+    <string name="please_input_the_expression_you_wish_to_integrate">Please Input the Expression You Wish to Integrate:</string>
+    <string name="integrate_with_respect_to">Integrate With Respect To</string>
+    <string-array name="letter_array">
+        <item>x</item>
+        <item>y</item>
+        <item>z</item>
+        <item>a</item>
+        <item>b</item>
+        <item>c</item>
+        <item>d</item>
+        <item>e</item>
+        <item>f</item>
+        <item>g</item>
+        <item>h</item>
+        <item>i</item>
+        <item>j</item>
+        <item>k</item>
+        <item>l</item>
+        <item>m</item>
+        <item>n</item>
+        <item>o</item>
+        <item>p</item>
+        <item>q</item>
+        <item>r</item>
+        <item>s</item>
+        <item>t</item>
+        <item>u</item>
+        <item>v</item>
+        <item>w</item>
+    </string-array>
+
 </resources>

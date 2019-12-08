@@ -25,11 +25,35 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/algebra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/algebraic" />
+
+        <Button
+            android:id="@+id/derivative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/derivation" />
+
+        <Button
+            android:id="@+id/integral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/integration" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,31 +84,42 @@
                 app:autoSizeMinTextSize="14sp"
                 app:fontFamily="monospace" />
 
-            <HorizontalScrollView
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
+                <EditText
+                    android:id="@+id/input"
+                    style="@style/Widget.AppCompat.AutoCompleteTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_gravity="start"
+                    android:autofillHints=""
+                    android:ems="16"
+                    android:gravity="start"
+                    android:hint="@string/type_expression_in_here"
+                    android:inputType="text"
+                    android:paddingTop="30dp"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    tools:targetApi="o" />
 
-                    <EditText
-                        android:id="@+id/input"
-                        style="@style/Widget.AppCompat.AutoCompleteTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="start"
-                        android:autofillHints=""
-                        android:ems="16"
-                        android:gravity="start"
-                        android:hint="@string/type_expression_in_here"
-                        android:inputType="text"
-                        android:paddingTop="30dp"
-                        android:singleLine="true"
-                        tools:targetApi="o" />
-                </LinearLayout>
-            </HorizontalScrollView>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/optional"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:textSize="24sp"
+                android:visibility="visible" />
+
+            <Spinner
+                android:id="@+id/dropDown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                tools:visibility="gone" />
 
         </LinearLayout>
 
