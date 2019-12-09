@@ -16,6 +16,8 @@ import javacalculus.struct.CalcObject
 import javacalculus.struct.CalcSymbol
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import org.apache.commons.math3.analysis.differentiation.*
+import org.apache.commons.math3.analysis.integration.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         val passIntent = Intent(this, CompletedActivity::class.java)
         val letters = resources.getStringArray(R.array.letter_array)
         var mathSymAsStr = "Algebra"
-        var chosenRand = "x"
+        var chosenDiff = "x"
 
         ArrayAdapter.createFromResource(
             this,
@@ -59,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int,
                                         id: Long) {
-                chosenRand = letters[position]
+                chosenDiff = letters[position]
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -93,25 +95,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         submit.setOnClickListener {
-            try {
-                if (mathSymAsStr == "DIFF") {
-                    val passed: String = input.text.toString()
-                    val pars = CalcParser(passed)
-                    val sym = CalcSymbol("x")
-                    val f = CalcFunction(sym, pars.parse())
-                    val derive = CalcDIFF()
-                    inputHandler(
-                        derive.differentiate(derive.evaluate(f), sym).toString(),
-                        passIntent
-                    )
-                }
-            } catch(e : Exception) {
-                inputHandler(e.toString()
-                    .plus(" Oopsies, Looks Like Your Input was Invalid! " +
-                            "Please Try to Input it in a Form " +
-                            "Similar to 'C1 + C2x + C3x^2 + ... + Cnx^n'")
-                            , passIntent)
-            }
+            inputHandler(mathSymAsStr, chosenDiff, input.text.toString(), passIntent)
         }
     }
 //
@@ -132,14 +116,35 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Backend to Handle User Input.
-     * Function Will Be Completed Later.
-     *
+     * Function Will Be Completed Later
      */
-    private fun inputHandler(input: String?, passIntent: Intent) {
-        /***
-         * DO SOMETHING WITH input HERE
-         */
-        passIntent.putExtra("output", input)
+    private fun inputHandler(mathSymAsStr: String, differential: String, input: String?, passIntent: Intent) {
+        var output: String = "Failure"
+
+        try {
+            if (mathSymAsStr == "DIFF") {
+                val pars = CalcParser(input)
+                val sym = CalcSymbol("x")
+                val func = CalcFunction(sym, pars.parse())
+                val derive = CalcDIFF()
+                output = "Differentiated"
+            }
+
+            if (mathSymAsStr == "INT") {
+                output = "Integrated"
+            }
+
+            else {
+                //MATS TREE LOGIC GOES HERE
+            }
+
+            passIntent.putExtra("output", output)
+        } catch(e : Exception) {
+            passIntent.putExtra("output", e.toString()
+                .plus(" Oopsies, Looks Like Your Input was Invalid! " +
+                        "Please Try to Input it in a Form " +
+                        "Similar to 'C1 + C2x + C3x^2 + ... + Cnx^n'"))
+        }
         startActivityForResult(passIntent, 0)
     }
 
