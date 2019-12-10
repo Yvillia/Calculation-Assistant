@@ -6,9 +6,9 @@
     <string name="title">Calculation Assistant</string>
     <string name="make_another_submission">Make Another Submission</string>
     <string name="algebraic">Algebraic</string>
-    <string name="derivation">Derivation</string>
+    <string name="differentiation">Differentiation</string>
     <string name="integration">Integration</string>
-    <string name="derivate_with_respect_to">Take Derivative With Respect To</string>
+    <string name="differentiate_with_respect_to">Take Derivative With Respect To</string>
     <string name="please_input_the_expression_you_wish_to_differentiate">Please Input the Expression You Wish to Differentiate:</string>
     <string name="please_input_the_expression_you_wish_to_integrate">Please Input the Expression You Wish to Integrate:</string>
     <string name="integrate_with_respect_to">Integrate With Respect To</string>

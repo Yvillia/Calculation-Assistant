@@ -4,9 +4,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class AlgebraSolver () {
-    var input: String = ""
-    var expList = ArrayList<String>()
-    var postFix = LinkedList<String>()
+    private var input: String = ""
+    private var expList = ArrayList<String>()
+    private var postFix = LinkedList<String>()
     var solutionSet = LinkedList<String>()
 
     constructor(setInput: String) : this() {
@@ -26,7 +26,7 @@ class AlgebraSolver () {
     private fun inputParse(input: String?): ArrayList<String> {
         val expList = ArrayList<String>()
         if (input != null) {
-            var expArray = input.replace("\\s".toRegex(), "").toCharArray()
+            val expArray = input.replace("\\s".toRegex(), "").toCharArray()
             var toAdd = ""
             for (item in expArray) {
                 if (item.isDigit()) {

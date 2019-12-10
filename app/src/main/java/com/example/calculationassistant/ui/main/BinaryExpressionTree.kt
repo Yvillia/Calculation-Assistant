@@ -4,31 +4,30 @@ import java.util.*
 import kotlin.math.pow
 import kotlin.text.StringBuilder
 
-class BinaryExpressionTree {
+class BinaryExpressionTree(input: LinkedList<String>) {
     private var root: Node? = null
     private var stack = Stack<Node>()
     private var step = 1
     internal var steps = LinkedList<String>()
 
-    constructor(input: LinkedList<String>) {
-
+    init {
         var current: Node
         for (value in input) {
             if (!isOperator(value)) {
                 current = Node(value)
-                stack?.push(current)
+                stack.push(current)
             } else {
                 current = Node(value)
-                current.right = stack?.pop()
-                current.left = stack?.pop()
-                stack?.push(current)
+                current.right = stack.pop()
+                current.left = stack.pop()
+                stack.push(current)
             }
         }
-        root = stack?.pop()
+        root = stack.pop()
     }
 
     fun preFix(): String {
-        var prefix = StringBuilder()
+        val prefix = StringBuilder()
         preFix(root, prefix)
         return prefix.toString()
     }
@@ -42,7 +41,7 @@ class BinaryExpressionTree {
     }
 
     fun inFix(): String {
-        var infix = StringBuilder()
+        val infix = StringBuilder()
         inFix(root, infix)
         return infix.toString()
     }
@@ -62,7 +61,7 @@ class BinaryExpressionTree {
     }
 
     fun postFix(): String {
-        var postfix = StringBuilder()
+        val postfix = StringBuilder()
         postFix(root, postfix)
         return postfix.toString()
     }
@@ -81,12 +80,12 @@ class BinaryExpressionTree {
     }
 
     private fun evaluate(current: Node?): Double? {
-        if (current != null && !isOperator(current?.value)) {
+        if (current != null && !isOperator(current.value)) {
             return current.value?.toDouble()
         } else {
             var result = 0.0
-            var leftOperand = evaluate(current?.left)
-            var rightOperand = evaluate(current?.right)
+            val leftOperand = evaluate(current?.left)
+            val rightOperand = evaluate(current?.right)
 
             if (current != null) {
                 when(current.value) {

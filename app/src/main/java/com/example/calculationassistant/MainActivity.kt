@@ -2,7 +2,6 @@ package com.example.calculationassistant
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.calculationassistant.ui.main.AlgebraSolver
@@ -88,7 +87,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun inputHandler(oper: Int, input: String, passIntent: Intent) {
         var output: String
-        var parse = WolframParser(input)
+        val parse = WolframParser(input)
 
         try {
             if (oper == 1) {

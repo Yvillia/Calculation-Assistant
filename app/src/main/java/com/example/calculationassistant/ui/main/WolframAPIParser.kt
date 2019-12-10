@@ -96,7 +96,7 @@ class WolframParser(userInput: String) {
     }
 
     init {
-        VALIDCHARS.addAll(Arrays.asList(*TEMPCHAR))
+        VALIDCHARS.addAll(listOf(*TEMPCHAR))
         adjustedString = userInput.trim { it <= ' ' }
         for (element in adjustedString) {
             require(VALIDCHARS.contains(element))

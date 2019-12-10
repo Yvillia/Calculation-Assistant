@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="?android:attr/buttonBarButtonStyle"
-            android:text="@string/derivation" />
+            android:text="@string/differentiation" />
 
         <Button
             android:id="@+id/integral"
