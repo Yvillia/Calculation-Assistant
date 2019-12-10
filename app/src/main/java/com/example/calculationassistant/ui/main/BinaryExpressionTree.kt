@@ -1,3 +1,5 @@
+package com.example.calculationassistant.ui.main
+
 import java.util.*
 import kotlin.math.pow
 import kotlin.text.StringBuilder
@@ -33,7 +35,7 @@ class BinaryExpressionTree {
 
     private fun preFix(current: Node?, prefix: StringBuilder?) {
         if (current != null) {
-            prefix?.append(current.value + " ");
+            prefix?.append(current.value + " ")
             preFix(current.left, prefix)
             preFix(current.right, prefix)
         }
@@ -48,13 +50,13 @@ class BinaryExpressionTree {
     private fun inFix(current: Node?, infix: StringBuilder?) {
         if (current != null) {
             if (isOperator(current.value.toString())) {
-                infix?.append("(");
+                infix?.append("(")
             }
             inFix(current.left, infix)
-            infix?.append(current.value);
+            infix?.append(current.value)
             inFix(current.right, infix)
             if (!isOperator(current.value.toString()) && infix.toString().contains("(")) {
-                infix?.append(")");
+                infix?.append(")")
             }
         }
     }
@@ -69,20 +71,20 @@ class BinaryExpressionTree {
         if (current != null) {
             postFix(current.left, postfix)
             postFix(current.right, postfix)
-            postfix?.append(current.value + " ");
+            postfix?.append(current.value + " ")
         }
     }
 
     fun evaluate(): Double? {
-        steps.add(inFix())
-        return evaluate(root);
+        //steps.add(inFix())
+        return evaluate(root)
     }
 
     private fun evaluate(current: Node?): Double? {
         if (current != null && !isOperator(current?.value)) {
-            return current.value?.toDouble();
+            return current.value?.toDouble()
         } else {
-            var result = 0.0;
+            var result = 0.0
             var leftOperand = evaluate(current?.left)
             var rightOperand = evaluate(current?.right)
 
@@ -155,5 +157,9 @@ class BinaryExpressionTree {
             }
             return result
         }
+    }
+
+    private fun isOperator(value: String?): Boolean {
+        return value == "+" || value == "-" || value == "*" || value == "/" || value == "^"
     }
 }

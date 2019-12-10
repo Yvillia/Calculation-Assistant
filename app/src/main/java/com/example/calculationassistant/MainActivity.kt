@@ -5,19 +5,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.calculationassistant.ui.main.AlgebraSolver
 import com.example.calculationassistant.ui.main.CompletedActivity
+import com.example.calculationassistant.ui.main.WolframParser
 import okhttp3.*
 import java.io.IOException
-import javacalculus.evaluator.CalcINT
-import javacalculus.evaluator.CalcDIFF
-import javacalculus.core.CalcParser
-import javacalculus.struct.CalcFunction
-import javacalculus.struct.CalcObject
-import javacalculus.struct.CalcSymbol
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
-import org.apache.commons.math3.analysis.differentiation.*
-import org.apache.commons.math3.analysis.integration.*
+import org.json.JSONObject
+import org.json.JSONArray
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,124 +22,106 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        val dropDownSpin = findViewById<Spinner>(R.id.dropDown)
-        val optionalStr = findViewById<TextView>(R.id.optional)
         val algebraBtn = findViewById<Button>(R.id.algebra)
         val derivativeBtn = findViewById<Button>(R.id.derivative)
         val integralBtn = findViewById<Button>(R.id.integral)
         val submit: Button = findViewById(R.id.confirm)
         val input: TextView = findViewById(R.id.input)
         val promptStr = findViewById<TextView>(R.id.prompt)
-        val deStr = resources.getString(R.string.derivate_with_respect_to)
-        val intStr = resources.getString(R.string.integrate_with_respect_to)
         val dePrompt = resources.getString(R.string.please_input_the_expression_you_wish_to_differentiate)
         val intPrompt = resources.getString(R.string.please_input_the_expression_you_wish_to_integrate)
         val algePrompt = resources.getString(R.string.please_input_your_algebraic_expression)
         val passIntent = Intent(this, CompletedActivity::class.java)
-        val letters = resources.getStringArray(R.array.letter_array)
-        var mathSymAsStr = "Algebra"
-        var chosenDiff = "x"
-
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.letter_array,
-            android.R.layout.simple_spinner_item
-        ).also { build ->
-            build.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            dropDownSpin.adapter = build
-        }
-
-        dropDownSpin.visibility = View.GONE
-
-        dropDownSpin.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int,
-                                        id: Long) {
-                chosenDiff = letters[position]
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        }
-
-        //val outputted = handleAPI("http://api.wolframalpha.com/v1/")
+        var operat = 0
 
         algebraBtn.setOnClickListener {
-            dropDownSpin.visibility = View.GONE
-            optionalStr.visibility = View.GONE
             promptStr.text = algePrompt
-            mathSymAsStr = "Algebra"
+            operat = 0
         }
 
         derivativeBtn.setOnClickListener {
-            dropDownSpin.visibility = View.VISIBLE
-            optionalStr.text = deStr
-            optionalStr.visibility = View.VISIBLE
             promptStr.text = dePrompt
-            mathSymAsStr = "DIFF"
+            operat = 1
         }
 
         integralBtn.setOnClickListener {
-            dropDownSpin.visibility = View.VISIBLE
-            optionalStr.text = intStr
-            optionalStr.visibility = View.VISIBLE
             promptStr.text = intPrompt
-            mathSymAsStr = "INT"
+            operat = 2
         }
 
         submit.setOnClickListener {
-            inputHandler(mathSymAsStr, chosenDiff, input.text.toString(), passIntent)
+            inputHandler(operat, input.text.toString(), passIntent)
         }
     }
-//
-//    private fun handleAPI(wolframAPI: String) : String? {
-//        val request = Request.Builder().url(wolframAPI).build()
-//        var returnString: String? = ""
-//
-//        client.newCall(request).enqueue(object : Callback {
-//            override fun onFailure(call: Call, e: IOException) {
-//                returnString = e.toString()
-//            }
-//            override fun onResponse(call: Call, response: Response) {
-//                returnString = response.body()?.toString()
-//            }
-//        })
-//        return returnString
-//    }
+
+    private fun handleAPI(wolframAPI: String, passIntent: Intent) {
+        val request = Request.Builder().url(wolframAPI).build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                passIntent.putExtra("output", e.toString())
+                startActivityForResult(passIntent, 0)
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                try {
+                    val strResponse = response.body!!.string()
+                    val json = JSONObject(strResponse).getJSONObject("queryresult")
+                    val jsonArr: JSONArray = json.getJSONArray("pods")
+                    val answerContainer: JSONObject = jsonArr.getJSONObject(0)
+                    val subAnswerContainer: JSONArray = answerContainer.getJSONArray("subpods")
+                    val subSubAnswerContainer: JSONObject = subAnswerContainer.getJSONObject(0)
+                    val answer: String = subSubAnswerContainer.getString("plaintext")
+                    passIntent.putExtra("output", answer)
+                    startActivityForResult(passIntent, 0)
+                } catch(e: Exception) {
+                    passIntent.putExtra("output", e.toString())
+                    startActivityForResult(passIntent,0)
+                }
+            }
+        })
+    }
 
     /**
      * Backend to Handle User Input.
      * Function Will Be Completed Later
      */
-    private fun inputHandler(mathSymAsStr: String, differential: String, input: String?, passIntent: Intent) {
-        var output: String = "Failure"
+    private fun inputHandler(oper: Int, input: String, passIntent: Intent) {
+        var output: String
+        var parse = WolframParser(input)
 
         try {
-            if (mathSymAsStr == "DIFF") {
-                val pars = CalcParser(input)
-                val sym = CalcSymbol("x")
-                val func = CalcFunction(sym, pars.parse())
-                val derive = CalcDIFF()
-                output = "Differentiated"
+            if (oper == 1) {
+                handleAPI("https://api.wolframalpha.com/v2/query?input=" +
+                "differentiate+".plus(parse.adjustedString).plus(
+                "&format=plaintext&output=JSON&appid=QY4H4K-K4Y2WTGGA7"), passIntent)
+                passIntent.putExtra("type", 1)
+            }
+            if (oper == 2) {
+                handleAPI("https://api.wolframalpha.com/v2/query?input=" +
+                "integrate+".plus(parse.adjustedString).plus(
+           "&format=plaintext&output=JSON&appid=QY4H4K-K4Y2WTGGA7"), passIntent)
+                passIntent.putExtra("type", 2)
+
             }
 
-            if (mathSymAsStr == "INT") {
-                output = "Integrated"
+            if (oper == 0) {
+                val inputSolve = AlgebraSolver(input)
+                output = ""
+                for (entry in inputSolve.solutionSet) {
+                    output = output.plus("\n".plus(entry).plus("\n"))
+                }
+                passIntent.putExtra("type", 0)
+                passIntent.putExtra("output", output)
+                startActivityForResult(passIntent, 0)
             }
-
-            else {
-                //MATS TREE LOGIC GOES HERE
-            }
-
-            passIntent.putExtra("output", output)
         } catch(e : Exception) {
             passIntent.putExtra("output", e.toString()
-                .plus(" Oopsies, Looks Like Your Input was Invalid! " +
-                        "Please Try to Input it in a Form " +
-                        "Similar to 'C1 + C2x + C3x^2 + ... + Cnx^n'"))
+                .plus(" Oops, Looks Like Your Input was Invalid!\n" +
+                        "Please Try to Input it in a Form Similar to Below:" +
+                        "\nFor Derivatives and Integrals: 'C1 + C2x + ... + Cnx^n'" +
+                        "\nFor Algebra: a + b * c ^ d / e * (f - g) No Unary Operators For Algebra"))
         }
-        startActivityForResult(passIntent, 0)
     }
 
 }

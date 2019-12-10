@@ -1,3 +1,5 @@
+package com.example.calculationassistant.ui.main
+
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -12,11 +14,12 @@ class AlgebraSolver () {
         expList = inputParse(input)
         postFix = infixToPostfix(expList)
         val tree = BinaryExpressionTree(postFix)
-        solutionSet.add("Entered expression: $input")
-        solutionSet.add("Prefix notation of entered expression: " + tree.preFix())
-        solutionSet.add("Infix notation of entered expression: " + tree.inFix())
-        solutionSet.add("Postfix notation of entered expression: " + tree.postFix())
-        solutionSet.add("Expression entered evaluated to: " + tree.evaluate())
+        solutionSet.add("Entered Expression: $input")
+        solutionSet.add("Prefix Notation: " + tree.preFix())
+        solutionSet.add("Infix Notation: " + tree.inFix())
+        solutionSet.add("Postfix Notation: " + tree.postFix())
+        solutionSet.add("Expression Evaluated To: " + tree.evaluate())
+        solutionSet.add("Solution to Steps (With Simplified Forms):")
         solutionSet.addAll(tree.steps)
     }
 
@@ -24,7 +27,7 @@ class AlgebraSolver () {
         val expList = ArrayList<String>()
         if (input != null) {
             var expArray = input.replace("\\s".toRegex(), "").toCharArray()
-            var toAdd = "";
+            var toAdd = ""
             for (item in expArray) {
                 if (item.isDigit()) {
                     toAdd += "" + item
@@ -57,7 +60,7 @@ class AlgebraSolver () {
                             && operators.peek() != "(")) {
                     output.add(operators.pop())
                 }
-                operators.push(value);
+                operators.push(value)
             } else if (value == "(") {
                 operators.push(value)
             } else if (value == ")") {
@@ -65,7 +68,7 @@ class AlgebraSolver () {
                     output.add(operators.pop())
                 }
                 if (operators.isNotEmpty() && operators.peek() == "(") {
-                    operators.pop();
+                    operators.pop()
                 }
             }
         }
@@ -75,5 +78,16 @@ class AlgebraSolver () {
         return output
     }
 
+    private fun isOperator(value: String?): Boolean {
+        return value == "+" || value == "-" || value == "*" || value == "/" || value == "^"
+    }
 
+    private fun precedence(value: String): Int {
+        return when (value) {
+            "+", "-" -> 1
+            "*", "/" -> 2
+            "^" -> 3
+            else -> -1
+        }
+    }
 }
